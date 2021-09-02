@@ -1,1 +1,1 @@
-# Progración II - 2s2021 Código visto en clases.
+# Programación II - 2s2021 Código visto en clases.
