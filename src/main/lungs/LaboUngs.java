@@ -1,10 +1,16 @@
 package main.lungs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LaboUngs {
 	private HashMap<String, Reserva> reservas;
 	private HashMap<String, Computadora> computadoras;
+	
+	public LaboUngs() {
+		reservas = new HashMap<>();
+		computadoras = new HashMap<>();
+	}
 
 	public void agregarComputadora(String nombreMaquina, Integer capacidad) {
 		computadoras.put(nombreMaquina, new Computadora(nombreMaquina, capacidad));
@@ -13,17 +19,38 @@ public class LaboUngs {
 	public void reservarComputadora(String nombreMaquina, String nombreUsuario) {
 		if(reservas.containsKey(nombreMaquina)) {
 			if(!reservas.get(nombreMaquina).reservaLlena()) {
-				reservas.get(nombreMaquina).agregarAlumno(new Alumno(nombreUsuario));
+				reservas.get(nombreMaquina).agregarAlumno(nombreUsuario);
 			}
 		}
-//		else {
-//			reservas.put(nombreMaquina, new Reserva(computadora, alumno))
-//		}
+		else {
+			Computadora computadora = computadoras.get(nombreMaquina);
+			ArrayList<String> alumnos = new ArrayList<String>();
+			alumnos.add(nombreUsuario);
+			reservas.put(nombreMaquina, new Reserva(computadora, alumnos));
+		}
 	}
 	
-	//Como defino el mostrar?
-	public HashMap<String, Reserva> mostrarReservas(){
-		return reservas;
+	public String mostrarReservas(){
+		//Complejidad Espacial: <-
+//		String[] strings = {"hola", "adios", "ungs", "complejidad"};
+//		String ret = "";
+//		for(String st: strings) {
+//		ret = ret + st; // ""+"hola"
+//						// "hola"+"adios"
+//						// "hola"+"adios"+"ungs" <-
+//						// "hola"+"adios"+"ungs"+"complejidad"
+//						// O(n**2)
+//	}
+		
+		StringBuilder stb = new StringBuilder();
+		for(String nombreMaquina: reservas.keySet()) {
+			stb.append(nombreMaquina);
+			stb.append(" Esta reservada por: ");
+			stb.append(reservas.get(nombreMaquina).alumnos());
+			stb.append("\n");	
+		}
+		
+		return stb.toString();
 	}
 	
 	//O(1)
