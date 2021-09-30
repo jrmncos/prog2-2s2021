@@ -46,4 +46,15 @@ class MulticonjuntoTest {
 		assertEquals(0 ,multiconjuntoSt.obtener("Adios"));
 	}
 	
+	
+	/*
+	 * Objeto: Sustantivo, atributos (estado) + metodos (comportamiento)
+	 * 
+	 * Clase: Plantilla a partir de la cual creo los objetos
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	
 }
