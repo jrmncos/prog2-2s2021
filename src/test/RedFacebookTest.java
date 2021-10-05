@@ -9,29 +9,26 @@ import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
+import redes.Red;
 import redes.RedFacebook;
 import redes.RedTwitter;
+import redes.UsuarioFacebook;
 
 public class RedFacebookTest {
 	
 	@Test
 	public void happyPathTest(){
-		RedFacebook fb = new RedFacebook();
+		Red<UsuarioFacebook> fb = new RedFacebook();
 		String p1 = "Martin";
 		String p2 = "German";
 		String p3 = "Adriana";
-		HashSet<String> expectedAmigos = new HashSet<>();
-		expectedAmigos.add(p2);
-		expectedAmigos.add(p3);
 		
 		fb.agregarRelacion(p1, p2);
 		
 		fb.agregarRelacion(p1, p3);
 
 		assertTrue(fb.esAmigo(p1, p2));
-		assertTrue(fb.esAmigo(p2, p1));
-		assertEquals(expectedAmigos, fb.amigos(p1));
-		
+		assertTrue(fb.esAmigo(p2, p1));		
 	}
 	
 	@Test
@@ -44,5 +41,22 @@ public class RedFacebookTest {
 		
 		assertTrue(tw.esAmigo(p1, p2));
 		assertFalse(tw.esAmigo(p2, p1));
+	}
+	
+	@Test
+	public void castingTest() {
+		Red rt = new RedTwitter();
+		Red rf = new RedFacebook();
+		
+		if(rt instanceof RedTwitter) {
+			RedTwitter twitter = (RedTwitter) rt;
+			twitter.twittear(null);
+		}
+		
+	}
+	
+	@Test
+	public void mejoresAmigosTest() {
+		
 	}
 }
