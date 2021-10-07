@@ -2,34 +2,72 @@ package redes;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
-public abstract class Red<T extends Usuario>{
+public abstract class Red<U extends Usuario>{
 	// Usuario -> { P1, ... Pn } Usuario
-	private HashMap<T, HashSet<T>> red;
+	private HashMap<U, HashSet<U>> red;
+	
+	
+	
+	// Martin -> "German, Adriana, Daniel, Jose"
+	// German -> "Martin" //Valido en FB
+	// .
+	// .
+	// Adriana -> "Martin,.."
 
 	public Red() {
 		red = new HashMap<>();
 	}
 	
-	public void agregarRelacion(T p1, T p2) {
+	public void agregarRelacion(U p1, U p2) {
 		if(red.containsKey(p1))
 			red.get(p1).add(p2);
 		else {
-			HashSet<T> amigos = new HashSet<>();
+			HashSet<U> amigos = new HashSet<>();
 			amigos.add(p2);
 			red.put(p1, amigos);
 		}
 	}
 
-	public boolean esAmigo(T p1, T p2) {
+	public boolean esAmigo(U p1, U p2) {
 		if(red.containsKey(p1)) {
 			return amigos(p1).contains(p2);
 		}
 		return false;	
 	}
 
-	public HashSet<T> amigos(T p1) {
+	public HashSet<U> amigos(U p1) {
 		return red.get(p1);
+	}
+	
+	//Ejemplo metodo generico
+	public <T> String conc(List<T> list) {
+		String conc = "";
+		for(T l: list) {
+			conc = conc + l.toString();
+		}
+		
+		return conc;
+	}
+	
+	//Ejemplo metodo generico
+	public <N extends Number> String conc2(List<N> list) {
+		String conc = "";
+		for(N l: list) {
+			conc = conc + l.toString();
+		}
+		
+		return conc;
+	}
+	
+	public String conc3(List<Number> list) {
+		String conc = "";
+		for(Number l: list) {
+			conc = conc + l.toString();
+		}
+		
+		return conc;
 	}
 	
 }

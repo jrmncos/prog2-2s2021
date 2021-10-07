@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +57,12 @@ public class RedFacebookTest {
 	}
 	
 	@Test
-	public void mejoresAmigosTest() {
+	public void conc() {
+		Red rt = new RedTwitter();
+		List<String> ls = List.of("Hola", "adios");
+		List<Integer> li = List.of(1,2,3);
+		List<Double> ld = List.of(1.0,2.1,3.2);
 		
+		rt.<Double>conc(ld);
 	}
 }
