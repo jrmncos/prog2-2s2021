@@ -231,6 +231,8 @@ public class SistemaDeTurnosTest {
 	public void votarTest() {
 		sistema.agregarMesa(F.general, F.dniGaladriel);
 		
+		sistema.asignarTurno(F.dniFrodo);
+		
 		Boolean voto = sistema.votar(F.dniFrodo);
 		
 		assertTrue(voto);

@@ -14,12 +14,12 @@ public class Fixture {
 	final String tipoMesaInvalida = "Cafeteria";
 	
 	final Integer dniFrodo = 40816816;
-	final Integer dniBilbo = 25450222;
+	final Integer dniBilbo = 25450123;
 	final Integer dniGaladriel = 10235236;
-	final Integer dniArwen = 25450222;
+	final Integer dniArwen = 25450321;
 	final Integer dniGandalf = 12356789;
 	final Integer dniEowyn = 11450222;
-	final Integer dniLegolas = 1114502222;
+	final Integer dniLegolas = 11145022;
 	final Integer dniSinVotante = 10101010;
 
 	final Integer cupoXFranjaHorariaEnfPreexistente = 20;

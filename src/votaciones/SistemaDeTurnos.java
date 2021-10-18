@@ -16,13 +16,12 @@ public class SistemaDeTurnos {
 	 * Si no lo est�, se genera una excepci�n.
 	 * Si la edad es menor a 16, se genera una excepci�n
 	 */
-	public Votante registrarVotante(
+	public void registrarVotante(
 			int dni, 
 			String nombre, 
 			int edad, 
 			boolean enfPrevia, 
 			boolean trabaja) {
-		return null;
 	}
 
 	/* Agregar una nueva mesa del tipo dado en el par�metro y asignar el presidente 
