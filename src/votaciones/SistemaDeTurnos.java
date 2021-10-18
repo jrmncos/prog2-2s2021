@@ -51,7 +51,7 @@ public class SistemaDeTurnos {
 	public Tupla<Integer, Integer> asignarTurno(int dni){
 		//Implementar....
 
-		return null;
+		return new Tupla<Integer, Integer>(null, null);
 	}
 
 	/* Asigna turnos automoticamente a los votantes sin turno. 

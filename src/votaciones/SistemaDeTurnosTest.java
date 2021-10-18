@@ -117,7 +117,10 @@ public class SistemaDeTurnosTest {
 	public void asignacionMesasDniInvalido() {
 		try {
 			sistema.agregarMesa(F.trabajador, F.dniSinRegistrar);
+			//Si llego hasta aca esta mal! deberia haber fallado
+			assertTrue(false);
 		}catch(Exception e) {
+			//No hay mesa para el Dni sin registrar
 			assertNotNull(e);
 		}
 	}
@@ -130,9 +133,11 @@ public class SistemaDeTurnosTest {
 	public void asignacionMesasTipomMesaInvalido() {
 		try {
 			sistema.agregarMesa(F.tipoMesaInvalida, F.dniFrodo);
+			//Si llego hasta aca esta mal! deberia haber fallado
+			assertTrue(false);
 		} catch(Exception e) {
+			//La mesa es invalida
 			assertNotNull(e);
-
 		}
 	}
 	
@@ -230,7 +235,10 @@ public class SistemaDeTurnosTest {
 		sistema.agregarMesa(F.general, F.dniGaladriel);
 		try {
 			sistema.asignarTurno(F.dniSinRegistrar);
+			//Si llego hasta aca esta mal! deberia haber fallado
+			assertTrue(false);
 		}catch(Exception e) {
+			// No deberia asignarse el turno
 			assertNotNull(e);
 		}
 	}
