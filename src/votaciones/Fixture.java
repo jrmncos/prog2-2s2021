@@ -20,7 +20,7 @@ public class Fixture {
 	final Integer dniGandalf = 12356789;
 	final Integer dniEowyn = 11450222;
 	final Integer dniLegolas = 11145022;
-	final Integer dniSinVotante = 10101010;
+	final Integer dniSinRegistrar = 10101010;
 
 	final Integer cupoXFranjaHorariaEnfPreexistente = 20;
 	final Integer cantDnis = 200;

@@ -4,16 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,8 +115,11 @@ public class SistemaDeTurnosTest {
 	 */
 	@Test
 	public void asignacionMesasDniInvalido() {
-		assertThrows(Exception.class, () ->
-				sistema.agregarMesa(F.trabajador, F.dniSinVotante));
+		try {
+			sistema.agregarMesa(F.trabajador, F.dniSinRegistrar);
+		}catch(Exception e) {
+			assertNotNull(e);
+		}
 	}
 	
 	/*
@@ -127,8 +128,12 @@ public class SistemaDeTurnosTest {
 	 */
 	@Test
 	public void asignacionMesasTipomMesaInvalido() {
-		assertThrows(Exception.class, () ->
-				sistema.agregarMesa(F.tipoMesaInvalida, F.dniFrodo));
+		try {
+			sistema.agregarMesa(F.tipoMesaInvalida, F.dniFrodo);
+		} catch(Exception e) {
+			assertNotNull(e);
+
+		}
 	}
 	
 	/*
@@ -139,7 +144,16 @@ public class SistemaDeTurnosTest {
 	@Test
 	public void asignacionTest() {
 		final Integer votantesEsperados = 7;
-		assertEquals(votantesEsperados, sistema.asignarTurnos());
+		
+		sistema.agregarMesa(F.enfPreexistente, F.dniFrodo);
+		
+		sistema.agregarMesa(F.mayor65, F.dniBilbo);
+		
+		sistema.agregarMesa(F.general, F.dniGaladriel);
+		
+		sistema.agregarMesa(F.trabajador, F.dniGandalf);
+		
+		assertEquals(votantesEsperados, (Integer)sistema.asignarTurnos());
 	}
 	
 	/*
@@ -150,12 +164,13 @@ public class SistemaDeTurnosTest {
 	 */
 	@Test
 	public void asignacionPorTipoMesaTest() {
-		final Integer numMesaEnfPreexistente = sistema.
+		final Integer numMesaTrabajadores = sistema.
 				agregarMesa(F.trabajador, F.dniBilbo);
 		
 		sistema.asignarTurnos();
 		
-		final Map<Integer, List<Integer>> franjaHoraria = sistema.asignadosAMesa(numMesaEnfPreexistente);
+		//Franja -> List<Dni>
+		final Map<Integer, List<Integer>> franjaHoraria = sistema.asignadosAMesa(numMesaTrabajadores);
 
 		final Set<Integer> votantes = extraerVotantes(franjaHoraria.values());
 		
@@ -169,8 +184,7 @@ public class SistemaDeTurnosTest {
 	}
 	
 	/*
-	 * En contraposicion al anterior Test, sino agrego una mesa para trabajadores
-	 * Quedarian afuera las votaciones
+	 * No se deberian asignar turnos a trabajadores (Ya que no hay una mesa)
 	 */
 	@Test
 	public void votantesSinTurnoTest() {
@@ -180,6 +194,7 @@ public class SistemaDeTurnosTest {
 		
 		sistema.asignarTurnos();
 		
+		// List<Tupla<TipoMesa, Cant Votantes Sin Turno>>
 		final List<Tupla<String, Integer>> votantesSinTurno = sistema.sinTurnoSegunTipoMesa();
 		
 		final Integer cantVotantesSinTurno = extraerVotantesSinTurno(votantesSinTurno);
@@ -197,8 +212,11 @@ public class SistemaDeTurnosTest {
 	public void asignarTurnoTest() {
 		sistema.agregarMesa(F.general, F.dniGaladriel);
 		
+		// <NumeroMesa, FranjaHoraria>
 		final Tupla<Integer, Integer> turno = sistema.asignarTurno(F.dniFrodo);
+		// <NumeroMesa, FranjaHoraria>
 		final Tupla<Integer, Integer> turnoAsignado = sistema.consultaTurno(F.dniFrodo);
+		
 		assertNotNull(turno);
 		assertNotNull(turnoAsignado);
 	}
@@ -210,13 +228,15 @@ public class SistemaDeTurnosTest {
 	@Test
 	public void asignarTurnoDniInvalidoTest() {
 		sistema.agregarMesa(F.general, F.dniGaladriel);
-		
-		assertThrows(Exception.class, () ->
-		sistema.asignarTurno(F.dniSinVotante));
+		try {
+			sistema.asignarTurno(F.dniSinRegistrar);
+		}catch(Exception e) {
+			assertNotNull(e);
+		}
 	}
 	
 	/*
-	 * No hay mesas, intengo agregar un turno y devuelve null
+	 * No hay mesas, intento agregar un turno y devuelve null
 	 */
 	@Test
 	public void asignarTurnoInvalidoTest() {
@@ -232,10 +252,10 @@ public class SistemaDeTurnosTest {
 		sistema.agregarMesa(F.general, F.dniGaladriel);
 		
 		sistema.asignarTurno(F.dniFrodo);
-		
+		//Pudo votar
 		Boolean voto = sistema.votar(F.dniFrodo);
-		
 		assertTrue(voto);
+		//No puede votar al intentar votar nuevamente
 		assertFalse(sistema.votar(F.dniFrodo));
 		
 	}
@@ -250,45 +270,54 @@ public class SistemaDeTurnosTest {
 		
 		//Una mesa con enfPreexistente soporta 20 votantes por franja horaria
 		//Tengo 10 franjas horarias: 8,9,10....17
-		//Deberia admitir como maximo 20 * 10 votantes
+		//Deberia admitir como maximo 20 * 10 votantes = F.cantDnis
 		
 		//Cargo en el sistema  F.cantDnis votantes
 		// Todos utilizando su dni como nombre, con 70 de edad y con enf preexistente
-		dnis.forEach((dni) -> {
+		
+		for(Integer dni: dnis) {
 			sistema.registrarVotante(
 					dni
 					, String.valueOf(dni)
 					, F.edad
 					, F.tieneEnfPrevia
 					, !F.trabaja);
-		});
-		
-		Map<Integer,List<Integer>> asignadosXFranjaHoraria = 
+		}
+		// FranjaHoraria -> List<Dni>
+		final Map<Integer,List<Integer>> asignadosXFranjaHoraria = 
 				sistema.asignadosAMesa(numMesa);
 		
 		for(List<Integer> franjaHoraria: asignadosXFranjaHoraria.values()) {
-			assertEquals(F.cupoXFranjaHorariaEnfPreexistente, (Integer)franjaHoraria.size());
+			//Cada franja tiene que tener exactamente 20 votantes
+			assertEquals(F.cupoXFranjaHorariaEnfPreexistente, 
+					(Integer)franjaHoraria.size());
 		}
 		
 	
 	}
 	
 	private List<Integer> generarNDnis(Integer n) {
-		return IntStream.range(0, F.cantDnis).boxed().collect(Collectors.toList());
+		List<Integer> dnis = new ArrayList<Integer>();
+		for(int i=0; i < F.cantDnis; i++) {
+			dnis.add(i);
+		}
+		return dnis;
 	}
 	
 	private Set<Integer> extraerVotantes(Collection<List<Integer>> votantesXFranjaHoraria) {
 		Set<Integer> votantes = new HashSet<>();
-		votantesXFranjaHoraria.forEach(
-				(votanteFranjaHoraria) -> votantes.addAll(votanteFranjaHoraria)
-		);
+		for(List<Integer> listasDnis: votantesXFranjaHoraria) {
+			votantes.addAll(listasDnis);
+		}
 		return votantes;
 	}
 	
 	private Integer extraerVotantesSinTurno(List<Tupla<String, Integer>> votantesSinTurno) {	
-		return votantesSinTurno
-				.stream()
-				.map(tupla -> tupla.getY()).reduce(0, Integer::sum);
+		Integer cantVotantesSinTurno = 0;
+		for(Tupla<String, Integer> mesaXVotantesSinTurno : votantesSinTurno ) {
+			cantVotantesSinTurno = cantVotantesSinTurno + mesaXVotantesSinTurno.getY();
+		}
+		return cantVotantesSinTurno;
 	}
 	
 }

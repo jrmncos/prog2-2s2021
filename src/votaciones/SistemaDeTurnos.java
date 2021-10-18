@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SistemaDeTurnos {
-	/* Constructor del sistema de asignaci�n de turnos. 
-	 * Si el par�metro nombre fuera null, debe generar una excepci�n.
+	/* Constructor del sistema de asignacion de turnos. 
+	 * Si el parametro nombre fuera null, debe generar una excepcion.
 	 */
 	public SistemaDeTurnos(String nombreSistema) {
 		
@@ -13,8 +13,8 @@ public class SistemaDeTurnos {
 
 	/* Registrar a los votantes. Antes de asignar un turno el votante debe estar registrado 
 	 * en el sistema. 
-	 * Si no lo est�, se genera una excepci�n.
-	 * Si la edad es menor a 16, se genera una excepci�n
+	 * Si no lo esta, se genera una excepcion.
+	 * Si la edad es menor a 16, se genera una excepcion
 	 */
 	public void registrarVotante(
 			int dni, 
@@ -22,17 +22,20 @@ public class SistemaDeTurnos {
 			int edad, 
 			boolean enfPrevia, 
 			boolean trabaja) {
+		//Implementar....
 	}
 
-	/* Agregar una nueva mesa del tipo dado en el par�metro y asignar el presidente 
-	 *  de cada una, el cual deber� estar entre los votantes registrados y sin turno asignado.
-	 *  -  Devuelve el n�mero de mesa  creada.
-	 *  si el president es un votante que no est� registrado debe devolver Empty
-	 *  si el tipo de mesa no es v�lido debe generar una excepci�n
-	 *  Los tipos v�lidos son:  �Enf_Preex�, �Mayor65�, �General� y �Trabajador�
+	/* Agregar una nueva mesa del tipo dado en el parametro y asignar el presidente 
+	 *  de cada una, el cual deberia estar entre los votantes registrados y sin turno asignado.
+	 *  -  Devuelve el numero de mesa  creada.
+	 *  si el president es un votante que no esta registrado debe devolver Empty
+	 *  si el tipo de mesa no es valido debe generar una excepcion
+	 *  Los tipos validos son:  Enf_Preex, Mayor65, General y Trabajador
 	 */
-	public Integer agregarMesa(final String tipoMesa, int dni) {
-		return null;
+	public int agregarMesa(final String tipoMesa, int dni) {
+		//Implementar....
+
+		return -1;
 	}
 
 	/* Asigna un turno a un votante determinado. 
@@ -46,51 +49,61 @@ public class SistemaDeTurnos {
 	 *  (Se supone que el turno permitira conocer la mesa y la franja horaria asignada)
 	 */
 	public Tupla<Integer, Integer> asignarTurno(int dni){
+		//Implementar....
+
 		return null;
 	}
 
-	/* Asigna turnos autom�ticamente a los votantes sin turno. 
+	/* Asigna turnos automoticamente a los votantes sin turno. 
 	 *  El sistema busca si hay alguna mesa y franja horaria factible en la que haya disponibilidad.
 	 *  Devuelve la cantidad de turnos que pudo asignar.
 	 */
-	public Integer asignarTurnos() {
-		return null;
+	public int asignarTurnos() {
+		return -1;
 	}
 
 	/* Hace efectivo el voto del votante determinado por su dni.
-	 *  Si el DNI no est� registrado entre los votantes debe generar una excepci�n
-	 *  Si ya hab�a votado devuelve false.
-	 *  Sino, efect�a el voto y devuelve true.
+	 *  Si el DNI no esta registrado entre los votantes debe generar una excepcion
+	 *  Si ya habia votado devuelve false.
+	 *  Sino, efectua el voto y devuelve true.
 	 */
-	public Boolean votar(int dni) {
-		return null;
+	public boolean votar(int dni) {
+		//Implementar....
+
+		return false;
 	}
 	
 	/* 
 	 * Cantidad de votantes con Turno asignados al tipo de mesa que se pide.
-	 * -  Permite conocer cu�ntos votantes se asignaron hasta el momento a alguno
-	 *      de los tipos de mesa que componen el sistema de votaci�n.
-	 * -  Si la clase de mesa solicitada no es v�lida debe generar una excepci�n
+	 * -  Permite conocer cuantos votantes se asignaron hasta el momento a alguno
+	 *      de los tipos de mesa que componen el sistema de votacion.
+	 * -  Si la clase de mesa solicitada no es valida debe generar una excepcion
 	 */
-	public Integer votantesConTurno(final String tipoMesa) {
-		return null;
+	public int votantesConTurno(final String tipoMesa) {
+		//Implementar....
+
+		return -1;
 	}
 
 	/* Consulta el turno de un votante dado su DNI. Devuelve Mesa y franja horaria.
-	* -  Si el DNI no pertenece a un votante genera una excepci�n.
+	* -  Si el DNI no pertenece a un votante genera una excepcion.
 	* -  Si el votante no tiene turno devuelve Empty.
 	*/
 	public Tupla<Integer, Integer> consultaTurno(int dni){
+		//Implementar....
+
 		return null;
 	}
 
-	/* Dado un n�mero de mesa, devuelve una Map cuya clave es la franja horaria y
+	/* Dado un numero de mesa, devuelve una Map cuya clave es la franja horaria y
 	 *  el valor es una lista con los DNI de los votantes asignados a esa franja.  
 	 *  Sin importar si se presentaron o no a votar.
-	 *  -  Si el n�mero de mesa no es v�lido genera una excepci�n.
+	 *  -  Si el numero de mesa no es valido genera una excepcion.
 	 *  -  Si no hay asignados devuelve un Map vacio.
 	 */
 	public Map<Integer,List<Integer>> asignadosAMesa(int numMesa){
+		//Implementar....
+
 		return null;
 	}
 
@@ -101,6 +114,8 @@ public class SistemaDeTurnos {
 	 *  La lista no puede tener 2 elementos para el mismo tipo de mesa.
 	 */
 	public List<Tupla<String, Integer>> sinTurnoSegunTipoMesa(){
+		//Implementar....
+
 		return null;
 	}
 }
