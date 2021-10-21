@@ -222,6 +222,11 @@ public class AB { // arbol binario
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public void crearCiclo(Integer elem1, Integer elem2) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	/*

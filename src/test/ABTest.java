@@ -100,10 +100,9 @@ public class ABTest {
 		arbol.agregar(9);
 		arbol.agregar(73);
 		
-		//Hacer algo para generar un ciclo!
+		arbol.crearCiclo(73, 9);
 		
 		assertTrue(arbol.tieneCiclos());
 	}
-	
 	
 }
