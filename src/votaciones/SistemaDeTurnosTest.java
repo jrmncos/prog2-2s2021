@@ -148,7 +148,7 @@ public class SistemaDeTurnosTest {
 	 */
 	@Test
 	public void asignacionTest() {
-		final Integer votantesEsperados = 7;
+		final Integer votantesEsperados = 4;
 		
 		sistema.agregarMesa(F.enfPreexistente, F.dniFrodo);
 		

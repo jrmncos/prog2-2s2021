@@ -28,7 +28,7 @@ public class SistemaDeTurnos {
 	/* Agregar una nueva mesa del tipo dado en el parametro y asignar el presidente 
 	 *  de cada una, el cual deberia estar entre los votantes registrados y sin turno asignado.
 	 *  -  Devuelve el numero de mesa  creada.
-	 *  si el president es un votante que no esta registrado debe devolver Empty
+	 *  si el president es un votante que no esta registrado debe devolver una excepcion
 	 *  si el tipo de mesa no es valido debe generar una excepcion
 	 *  Los tipos validos son:  Enf_Preex, Mayor65, General y Trabajador
 	 */

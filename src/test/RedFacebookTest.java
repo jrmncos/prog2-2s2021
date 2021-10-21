@@ -1,11 +1,8 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,15 +11,16 @@ import redes.Red;
 import redes.RedFacebook;
 import redes.RedTwitter;
 import redes.UsuarioFacebook;
+import redes.UsuarioTwitter;
 
 public class RedFacebookTest {
 	
 	@Test
 	public void happyPathTest(){
 		Red<UsuarioFacebook> fb = new RedFacebook();
-		String p1 = "Martin";
-		String p2 = "German";
-		String p3 = "Adriana";
+		UsuarioFacebook p1 = new UsuarioFacebook("Martin", "martin@someemail.com", "martinp");
+		UsuarioFacebook p2 = new UsuarioFacebook("German", "German@someemail.com", "germanc");
+		UsuarioFacebook p3 = new UsuarioFacebook("Adriana", "adriana@someemail.com", "adrianag");
 		
 		fb.agregarRelacion(p1, p2);
 		
@@ -35,8 +33,9 @@ public class RedFacebookTest {
 	@Test
 	public void redAsimetricaTest() {
 		RedTwitter tw = new RedTwitter();
-		String p1 = "Martin";
-		String p2 = "German";
+	
+		UsuarioTwitter p1 = new UsuarioTwitter("Martin", "martin@someemail.com", "martinp");
+		UsuarioTwitter p2 = new UsuarioTwitter("German", "German@someemail.com", "germanc");
 		
 		tw.agregarRelacion(p1, p2);
 		
@@ -46,8 +45,7 @@ public class RedFacebookTest {
 	
 	@Test
 	public void castingTest() {
-		Red rt = new RedTwitter();
-		Red rf = new RedFacebook();
+		Red<UsuarioTwitter> rt = new RedTwitter();
 		
 		if(rt instanceof RedTwitter) {
 			RedTwitter twitter = (RedTwitter) rt;
@@ -58,9 +56,7 @@ public class RedFacebookTest {
 	
 	@Test
 	public void conc() {
-		Red rt = new RedTwitter();
-		List<String> ls = List.of("Hola", "adios");
-		List<Integer> li = List.of(1,2,3);
+		Red<UsuarioTwitter> rt = new RedTwitter();
 		List<Double> ld = List.of(1.0,2.1,3.2);
 		
 		rt.<Double>conc(ld);
