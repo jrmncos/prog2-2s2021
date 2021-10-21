@@ -18,20 +18,36 @@ public class AB { // arbol binario
 		
 	}	
 	
+	/*
+ * 		arbol.agregar(10);
+		arbol.agregar(7);
+		arbol.agregar(2);
+		arbol.agregar(87);
+		arbol.agregar(9);
+		arbol.agregar(73);
+	 */
+	
+	/*							10
+	 * 						7		2
+	 * 					87		9
+	 				73     
+	 */			
 	
 	public void agregar(Integer elem) {	
 		Nodo nuevo = new Nodo(elem);	
 		if (raiz == null)
 			raiz = nuevo;
 		else
-			agregar1(raiz, nuevo);		
+			agregar(raiz, nuevo);		
 	}
 	
-	private void agregar1(Nodo nodo, Nodo nuevo) {
+	private void agregar(Nodo nodo, Nodo nuevo) {
 		if (nodo.izq == null)
 			nodo.izq = nuevo;
+		else if(nodo.der == null)
+			nodo.der = nuevo;
 		else
-			agregar1(nodo.izq, nuevo);
+			agregar(nodo.izq, nuevo);
 	}
 
 
@@ -175,5 +191,71 @@ public class AB { // arbol binario
 	private boolean esHoja(Nodo n) {
 		return n.izq == null && n.der == null;
 	}
+
+	public Integer cantNodos() {
+		return cantNodos(raiz);
+	}
+	
+	private Integer cantNodos(Nodo n) {
+		if(n == null) {
+			return 0;
+		}
+		else {
+			return 1 + cantNodos(n.izq) + cantNodos(n.der);
+		}
+	}
+	
+	
+	public Boolean balanceado() {
+		return balanceado(raiz);
+	}
+	
+	private Boolean balanceado(Nodo n) {
+		if (n == null)
+			return true;
+		return (Math.abs(altura(n.izq) - altura(n.der)) <= 1) 
+				&& balanceado(n.izq) 
+				&& balanceado(n.der);
+	}
+
+	public boolean tieneCiclos() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+	/*
+	 * 				10
+	 * 		7				1
+	 * 
+	 *    2							10
+	 * 1								40
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 					
+	 * 					7
+	 * 				2
+	 * 			1
+	 * 
+	 * estaBalanceado(Nodo n)
+	 * if(...)
+	 * 
+	 * 
+	 * else
+	 * 
+	 *      return altura(n.izq) - altura(n.der) <= 1
+	 *      && estaBalanceado(n.izq) && estaBalanceado(n.der)
+	 *      
+	 *      
+	 * 
+	 * 
+	 */
+	
+	
+	
+	
 
 }
