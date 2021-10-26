@@ -92,6 +92,7 @@ public class ABTest {
 		assertTrue(arbol.equals(arbol2));
 	}
 	
+	@Test
 	public void tieneCiclosTest() {
 		AB arbol = new AB(); 
 		arbol.agregar(10);

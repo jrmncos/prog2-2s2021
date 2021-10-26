@@ -1,7 +1,9 @@
 package arboles;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AB { // arbol binario
 	protected Nodo raiz;
@@ -222,8 +224,25 @@ public class AB { // arbol binario
 	}
 
 	public boolean tieneCiclos() {
-		// TODO Auto-generated method stub
-		return false;
+		Set<Integer> nodosVisitados = new HashSet<>();
+		return tieneCiclos(raiz, nodosVisitados);
+	}
+	
+	private boolean tieneCiclos(Nodo nodo, Set<Integer> nodosVisitados) {
+		if(nodo == null) {
+			return false;
+		}
+		else {
+			if(nodosVisitados.contains(nodo.info)) {
+				return true;
+			}
+			else {
+				nodosVisitados.add(nodo.info);
+				return tieneCiclos(nodo.izq, nodosVisitados)
+						|| tieneCiclos(nodo.der, nodosVisitados);
+			}
+		}
+			
 	}
 
 	
@@ -232,7 +251,7 @@ public class AB { // arbol binario
 			Nodo n1 = buscar(elem1, raiz);
 			Nodo n2 = buscar(elem2, raiz);
 			
-			//Creo el ciclo....
+			n1.izq = n2;
 		}
 	}
 	
