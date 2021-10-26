@@ -1,12 +1,15 @@
 package arboles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AB { // arbol binario
-	private Nodo raiz;
+	protected Nodo raiz;
 
 	public static class Nodo{ //clase interna
-		private Integer info;
-		private Nodo izq;
-		private Nodo der;
+		protected Integer info;
+		protected Nodo izq;
+		protected Nodo der;
 		public Nodo(Integer info){
 			this.info = info;
 		}
@@ -223,11 +226,41 @@ public class AB { // arbol binario
 		return false;
 	}
 
+	
 	public void crearCiclo(Integer elem1, Integer elem2) {
-		// TODO Auto-generated method stub
-		
+		if(pertenece(elem1) && pertenece(elem2)) {
+			Nodo n1 = buscar(elem1, raiz);
+			Nodo n2 = buscar(elem2, raiz);
+			
+			//Creo el ciclo....
+		}
 	}
 	
+	private Nodo buscar(Integer elem, Nodo nodo) {
+		if(nodo == null) {
+			return null;
+		}
+		else if(nodo.info.equals(elem)) {
+			return nodo;
+		}
+		else {
+			Nodo nodoIzq =  buscar(elem, nodo.izq);
+			Nodo nodoDer =  buscar(elem, nodo.der);
+			
+			return nodoIzq != null ? nodoIzq: nodoDer;
+		}
+	}
+			
+			/*
+			 *     if(nodo.izq != null)
+			 *        return nodoIzq
+			 *     else
+			 *        return nododER
+			 */
+			
+		// condicion ? caso afirmativo : caso negativo
+		
+
 	
 	/*
 	 * 				10
@@ -260,7 +293,50 @@ public class AB { // arbol binario
 	 */
 	
 	
+	public boolean esABB() {
+		// Me traigo los nodos inorder
+		// Chequeo que los nodos esten ordenados de menor a mayor
+		List<Integer> nodos = this.inorder();
+		
+		boolean ret = true;
+		for(int i=0; i < nodos.size()-1; i++) {
+			ret = ret && nodos.get(i) <= nodos.get(i+1);
+		}
+		
+		return ret;
+	}
 	
+	/*							10
+	 * 						7		2
+	 * 					87		9
+	 				73     
+	 */			
+	
+	public void preorder() {
+		preorder(raiz);
+	}
+	
+	private void preorder(Nodo nodo) {
+		if(nodo != null) {
+			System.out.println(nodo.info);
+			preorder(nodo.izq);
+			preorder(nodo.der);
+		}
+	}
 	
 
+	public List<Integer> inorder() {
+		List<Integer> l = new ArrayList<>();
+		return inorder(raiz, l);
+	}
+	
+	private List<Integer> inorder(Nodo nodo, List<Integer> l) {
+		if(nodo != null) {
+			inorder(nodo.izq, l);
+			l.add(nodo.info);
+			inorder(nodo.der, l);
+		}
+		return l;
+	}
+	
 }

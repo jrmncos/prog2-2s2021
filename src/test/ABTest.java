@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 
 import org.junit.Test;
 
 import arboles.AB;
+import arboles.ABB;
 
 public class ABTest {
 	
@@ -19,6 +21,7 @@ public class ABTest {
 		arbol.agregar(2);
 		arbol.agregar(87);
 		arbol.agregar(9);
+		
 		
 		assertEquals((Integer) 5, arbol.cantNodos());
 		assertTrue(arbol.pertenece(10));
@@ -65,11 +68,10 @@ public class ABTest {
 		arbol.agregar(9);
 		arbol.agregar(73);
 		
+		
 		assertFalse(arbol.balanceado());
 	}
 	
-	
-	@Test
 	public void equalsContenidoTest() {
 		AB arbol = new AB(); 
 		arbol.agregar(10);
@@ -90,7 +92,6 @@ public class ABTest {
 		assertTrue(arbol.equals(arbol2));
 	}
 	
-	@Test
 	public void tieneCiclosTest() {
 		AB arbol = new AB(); 
 		arbol.agregar(10);
@@ -103,6 +104,63 @@ public class ABTest {
 		arbol.crearCiclo(73, 9);
 		
 		assertTrue(arbol.tieneCiclos());
+	}
+	
+	@Test
+	public void happyPathABB() {
+		ABB abb = new ABB();
+		abb.agregar(10);
+		abb.agregar(2);
+		abb.agregar(34);
+		abb.agregar(8);
+		abb.agregar(18);
+		
+		//abb.inorder();
+		
+		assertEquals((Integer) 5, abb.cantNodos());
+		assertTrue(abb.balanceado());
+	}
+	
+	@Test
+	public void inorderTest() {
+		ABB abb = new ABB();
+		abb.agregar(10);
+		abb.agregar(2);
+		abb.agregar(34);
+		abb.agregar(8);
+		abb.agregar(18);
+		
+		
+		List<Integer> expected = 
+				List.of(2, 8, 10, 18, 34);
+		
+		List<Integer> inorder = abb.inorder();
+		
+		assertEquals(expected, inorder);
+	}
+	
+	@Test
+	public void esABBTest() {
+		ABB abb = new ABB();
+		abb.agregar(10);
+		abb.agregar(2);
+		abb.agregar(34);
+		abb.agregar(8);
+		abb.agregar(18);
+		
+		assertTrue(abb.esABB());
+	}
+	
+	@Test
+	public void noEsABBTest() {
+		AB ab = new AB();
+		ab.agregar(10);
+		ab.agregar(2);
+		ab.agregar(34);
+		ab.agregar(8);
+		ab.agregar(18);
+		
+		assertFalse(ab.esABB());
 	}
 	
 }
