@@ -164,4 +164,39 @@ public class ABTest {
 		assertFalse(ab.esABB());
 	}
 	
+	/*
+	 * 					10
+	 * 			2				34
+	 * 				8		18     35
+	 * 
+	 */
+	
+	@Test
+	public void recorridoPorNivel() {
+		ABB abb = new ABB();
+		abb.agregar(10);
+		abb.agregar(2);
+		abb.agregar(34);
+		abb.agregar(8);
+		abb.agregar(18);
+		abb.agregar(35);
+		// 10, 2, 34, 8, 18, 35
+		
+		abb.recorrerPorNivel();
+	}
+	
+	@Test
+	public void reverseTest() {
+		ABB abb = new ABB();
+		abb.agregar(2);
+		abb.agregar(1);
+		abb.agregar(4);
+		abb.agregar(3);
+		abb.agregar(5);
+		
+		abb.reverse();
+	
+		System.out.println(abb.toString());
+		
+	}
 }

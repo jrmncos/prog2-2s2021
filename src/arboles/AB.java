@@ -358,4 +358,95 @@ public class AB { // arbol binario
 		return l;
 	}
 	
+	public boolean igualEstruc(ABB abb2) {
+		return igualAux(raiz, abb2.raiz);
+	}
+	
+	private boolean igualAux(Nodo propio, Nodo otro) {
+		if(propio==null) {
+			return otro == null;
+		}
+		else {
+			if(otro==null) {
+				return false;
+			}
+			else {
+				return propio.info.equals(otro.info) 
+						&& igualAux(propio.izq, otro.izq)
+						&& igualAux(propio.der, otro.der);
+			}
+		}
+	}
+	
+	// Complejidad
+	// Cuantas veces visita cada nodo ?
+	
+	
+	public void recorrerPorNivel() {
+		Integer cantidadNiveles = this.altura();
+		recorrerPorNivel(0, cantidadNiveles);
+	}
+	
+	private void recorrerPorNivel(Integer nivelActual, Integer ultimo) {
+		if(nivelActual == ultimo) {
+			return;
+		}
+		else {
+			imprimirNivel(this.raiz, nivelActual); // O(n)
+			recorrerPorNivel(nivelActual + 1, ultimo);
+		}
+	}
+	
+	// O(n)
+	private void imprimirNivel(Nodo nodo, int nivel) {
+		if (nodo == null)
+			return;
+		if (nivel == 0) {
+			System.out.println(nodo.info);
+		}
+		imprimirNivel(nodo.izq, nivel - 1);
+		imprimirNivel(nodo.der, nivel - 1);
+	}
+	
+	// => O(n * n) 
+	
+	/*
+	 * 					2
+	 * 
+	 * 			1				4
+	 * 									
+	 * 					3			5
+	 * 
+	 */
+	// Despues de procesar el 1.
+	/*
+	 * 					2
+	 * 
+	 * 			4				1
+	 * 									
+	 * 		5			3			
+	 * 
+	 */
+	
+	
+	public void reverse() {
+		reverse(this.raiz);
+	}
+	
+	private void reverse(Nodo nodo) {
+		if(nodo == null || esHoja(nodo))
+			return;
+		else {
+			swapHijos(nodo);
+			reverse(nodo.izq);
+			reverse(nodo.der);
+		}
+	}
+	
+	private void swapHijos(Nodo nodo) {
+		Nodo aux = nodo.der;
+		nodo.der = nodo.izq;
+		nodo.izq = aux;	
+	}
+	
 }
